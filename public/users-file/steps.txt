@@ -1,0 +1,72 @@
+$ rails new market
+$ cd market
+$ bundle install
+$ rails s 
+http://localhost:3000/
+
+
+$ rails g scaffold country name:string
+$ rails g scaffold user email:string country_id:integer
+$ rails g scaffold category name:string
+$ rails g scaffold product name:string price:float category_id:integer
+$ rake db:migrate
+
+activeadmin :
+  gem 'activeadmin', '~> 1.0.0.pre2' 
+  gem 'devise'
+  rails g active_admin:install User
+  rake db:migrate
+  rake db:seed
+  rails server
+  localhost:3000/admin
+
+
+
+add prodcut, category, country, user to activeadmin 
+
+
+config models
+config routes
+add menu to layout
+Remove actions from front-end (new, edit, delete) - but don't delete show
+
+
+cateogry show page for listing product : 
+mentain session store : login and logout :
+  rails g controller sessions
+  update SessionsController
+  resources :sessions
+  ApplicationController >> current_user
+  View Login, and logout 
+
+
+select product : add to my selected products : add to fav.
+  User Model : has_and_belongs_to_many
+  Product Model : has_and_belongs_to_many
+  rails g migration create_products_users
+  product show listing action
+  update routes
+  ProductsController >> add_to_fav
+
+
+user show page : list products
+  UsersController >> Show
+  Show View
+
+
+product show page : list users
+  ProductsController >> Show
+  Show View
+
+TEST
+  Fixtures
+  UserTest
+  rake test test/models/user_test.rb 
+  rake test test/controllers/users_controller_test.rb 
+
+HELPER
+
+
+More tasks : 
+  Remove product from fav
+

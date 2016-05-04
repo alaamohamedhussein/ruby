@@ -1,0 +1,116 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @lecture.content.html_safe %>
+</p>
+
+<p>
+  <strong>Attachment:</strong>
+
+</p>
+<% if @lecture.attachment.file %>
+<%= link_to "Download lecture ", users_download_path(:attachment => @lecture.attachment.file.path)  %>
+    <% end %>
+<p>
+  <strong>User:</strong>
+  <%= @lecture.user.name %>
+</p>
+
+<p>
+  <strong>Course:</strong>
+  <%= @lecture.course.title %>
+</p>
+<% if user_signed_in? %>
+    <% if current_user.voted_up_on? @lecture %>
+        <button type="button" id="like">unlike</button>
+    <%else%>
+     <button type="button" id="like">like</button>
+    <%end%>
+<%end%>
+
+<%= link_to 'Edit', edit_lecture_path(@lecture) %> |
+<%= link_to 'Back', lectures_path %>
+<hr>
+
+<% @lecture.comments.each do |comment| %>
+
+        <%=comment.content%>
+    <%=comment.user.name%>
+    <br>
+<% end  %>
+<div id="append"></div>
+
+<% if user_signed_in?%>
+<input type="text" id="content"/>
+<button type="button" id="comment">comment</button>
+<br>
+    <%end%>
+ <script>
+   <% if current_user.voted_up_on? @lecture %>
+    flag =0;
+   <% else %>
+   flag =1;
+   <% end %>
+   var lecture_id = <%=@lecture.id%>
+   $('#like').on('click',function(){
+
+     if (flag ==1) {
+       $.ajax(
+           {
+             url: '/lectures/' + lecture_id + '/vote',
+             method: 'get',
+             success: function (dataaaa) {
+               if (dataaaa.type == "successed") {
+                 $('#like').html("unlike");
+                 flag = 0;
+               }
+             }
+
+           }
+       )
+     }
+
+     if (flag ==0)
+     {
+
+
+       $.ajax(
+           {
+             url: '/lectures/' + lecture_id + '/unvote',
+             method: 'get',
+             success: function (dataaaa) {
+               if (dataaaa.type == "successed") {
+                 $('#like').html("like");
+                 flag = 1;
+               }
+             }
+
+           }
+       )
+
+     }
+   })
+
+     $('#comment').on('click',function(){
+       content= $('#content').val();
+
+        if (content.trim() != "")
+        {
+          $.ajax({
+
+            url:'/lectures/' + lecture_id + '/comment',
+            method:'get',
+            data:{'content':content},
+            success:function(data){
+
+              $('#append').append(
+
+                  content+'<br>'+'<%= current_user.name%>'
+              );
+            }
+          });
+        }
+
+     });
+ </script>

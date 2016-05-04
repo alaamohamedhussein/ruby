@@ -1,0 +1,59 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+      <% end%>
+    </ul>
+    <div class="field">
+      <%= f.label :Name %><br />
+      <%= f.text_field :name, autofocus: true %>
+    </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+    <div class="field">
+      <%= f.label :BirthDate %><br />
+      <%= f.date_field :BirthDate, autofocus: true %>
+    </div>
+    <div class="field">
+      <%= f.label :Gender %><br />
+      <%= f.label :Gender, "female", :value => "female"  %>
+      <%= f.radio_button :gender , "female" %>
+      <%= f.label :Gender, "male", :value => "male"  %>
+      <%= f.radio_button :gender , "male" %>
+    </div>
+    <div class="field">
+      <%= f.label :Type %><br />
+      <%= f.label :Type, "student", :value => "student"  %>
+      <%= f.radio_button :degree , "student" %>
+      <%= f.label :Type, "instracror", :value => "instractor"  %>
+      <%= f.radio_button :degree , "instractor" %>
+    </div>
+    <div class="field">
+      <%=f.label "upload a profile picture"%><br/>
+      <%= f.file_field :image %>
+    </div>
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "users/shared/links" %>
