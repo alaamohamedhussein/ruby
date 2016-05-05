@@ -1,10 +1,12 @@
 class LecturesController < ApplicationController
   before_action :set_lecture, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user! ,only: [:new,:create]
   # GET /lectures
   # GET /lectures.json
   def index
-    @lectures = Lecture.all
+    course=params[:format]
+    # @params = course
+    @lectures = Lecture.where(:course_id => course);
   end
 
   # GET /lectures/1
@@ -14,7 +16,9 @@ class LecturesController < ApplicationController
 
   # GET /lectures/new
   def new
-
+    if !current_user.degree || current_user.degree == 'student'
+      redirect_to courses_path
+    end
     @lecture = Lecture.new()
 
 

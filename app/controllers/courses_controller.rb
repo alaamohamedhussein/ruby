@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user! ,only: [:new,:create]
   # GET /courses
   # GET /courses.json
   def index
@@ -15,6 +15,9 @@ class CoursesController < ApplicationController
   # GET /courses/new
   def new
 
+    if !current_user.degree || current_user.degree == 'student'
+      redirect_to courses_path
+    end
     @course= Course.new
 
   end

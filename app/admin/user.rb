@@ -4,7 +4,7 @@ ActiveAdmin.register User do
     f.inputs "Admin Details" do
       f.input :name
       f.input :gender
-      f.input :BirthDate
+      f.input :BirthDate ,:start_year => 1980 ,:end_year => 2005
       f.input :degree
       f.input :image
       f.input :email

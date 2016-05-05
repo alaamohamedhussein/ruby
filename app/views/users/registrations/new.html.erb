@@ -1,4 +1,17 @@
-<h2>Sign up</h2>
+<section id="contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2>Contact Me</h2>
+        <hr class="star-primary">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+        <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+        <!--<form name="sentMessage" id="contactForm" novalidate>-->
+<h2>Sign up fpr me</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -7,18 +20,27 @@
           <li><%= msg %></li>
       <% end%>
     </ul>
+              <!--<div class="row control-group">-->
+                <!--<div class="form-group col-xs-12 ">-->
+
     <div class="field">
-      <%= f.label :Name %><br />
+
+      <%= f.label :Name  %><br />
       <%= f.text_field :name, autofocus: true %>
     </div>
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="row control-group">-->
+                <!--<div class="form-group col-xs-12 ">-->
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
   </div>
-
+                <!--</div>-->
+              <!--</div>-->
     <div class="field">
       <%= f.label :BirthDate %><br />
-      <%= f.date_field :BirthDate, autofocus: true %>
+      <%= f.date_select :BirthDate, autofocus: true ,:start_year => 1980 ,:end_year=>2005%>
     </div>
     <div class="field">
       <%= f.label :Gender %><br />
@@ -57,3 +79,8 @@
 <% end %>
 
 <%= render "users/shared/links" %>
+        <!--</form>-->
+      </div>
+    </div>
+  </div>
+</section>

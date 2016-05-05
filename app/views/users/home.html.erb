@@ -1,3 +1,32 @@
-<h1>Users#home</h1>
-<p>Find me in app/views/users/home.html.erb</p>
-
+<!--<h1>Users#home</h1>-->
+<!--<p>Find me in app/views/users/home.html.erb</p>-->
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <% if user_signed_in? %>
+        <img class="img-responsive" src=<%=current_user.image%> alt="">
+        <div class="intro-text">
+          <span class="name"><%=current_user.name%></span>
+          <hr class="star-light">
+          <span class="skills">
+            <%= link_to 'Course', courses_path %><br>
+            <%= link_to 'Lecture', lectures_path %>
+          </span>
+          <br><br><br><br>
+        </div>
+          <%else%>
+            <img class="img-responsive" src="coursak.jpg" alt="">
+            <div class="intro-text">
+              <span class="name">check your course</span>
+              <hr class="star-light">
+          <span class="skills">
+            <%= link_to 'Course', courses_path %><br>
+          </span>
+              <br><br><br><br>
+            </div>
+            <%end%>
+      </div>
+    </div>
+  </div>
+</header>

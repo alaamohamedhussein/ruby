@@ -1,33 +1,49 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Listing Courses</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<section class="success" id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2>Courses list </h2>
+        <hr class="star-primary">
+        <br>
+        <% if user_signed_in? && current_user.degree=="instractor"%>
+            <%= link_to 'ADD New Course', new_course_path , class: "btn btn-primary"%>
+        <%end  %>
+      </div>
+    </div>
+    <div class="row">
     <% @courses.each do |course| %>
-      <tr>
-        <td><%= course.title %></td>
-        <td><%= course.user.try(:name) %></td>
-        <td><%= link_to 'Show', course %></td>
+    <div class="col-sm-4 portfolio-item">
 
-        <%if course.user_id == current_user.id %>
-            <td><%= link_to 'Edit', edit_course_path(course) %></td>
-            <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <%end%>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
-<% if user_signed_in? && current_user.degree=="instractor"%>
-<%= link_to 'New Course', new_course_path %>
-<%end  %>
+          <% if user_signed_in?%>
+              <%if course.user_id == current_user.id %>
+
+                  <h4> <%= link_to course.title, course %> </h4>
+                  <h4>By: <%= course.user.name%></h4>
+                  <h1></h1>
+                  <%= link_to 'Edit', edit_course_path(course) %>
+                  <%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <br>
+                  <%else%>
+                      <h4> <%= link_to course.title, course %> </h4>
+                      <h4>By: <%= course.user.name%></h4>
+                      <br>
+              <%end%>
+
+          <%else%>
+              <h4> <%= link_to course.title, course %> </h4>
+              <h4>By: <%= course.user.name%></h4>
+              <br>
+          <%end%>
+    </div>
+
+      <% end %>
+</div>
+
+
+
+
+
+  </div>
+</section>

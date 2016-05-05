@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   devise_for :users , controllers: { sessions: "users/sessions" , registrations: "users/registrations" }
   resources :users
    root 'users#home'
+  get 'lectures/:courseid/index' =>'lectures#index'
   get 'lectures/:lectid/vote' =>'lectures#vote'
   get 'lectures/:lectid/unvote' =>'lectures#unvote'
   get 'lectures/:lectid/comment' =>'lectures#comment'

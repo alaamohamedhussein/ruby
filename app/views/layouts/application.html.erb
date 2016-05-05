@@ -7,23 +7,70 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if user_signed_in? %>
-    <%= link_to "sign Out",  destroy_user_session_path,method: :delete %>
-<%else%>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Corsak</a>
+      <h class="navbar-brand">
+      <% if user_signed_in? %>
 
-    <%= link_to "Log in",  user_session_path %>
-<%  end %>
+        welcome:<%= current_user.name  %>
 
-<%= link_to "courses",  courses_path %>
+      <%  end %>
+      </h>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="hidden">
+          <a href="#page-top"></a>
+        </li>
+        <li class="page-scroll">
+          <% if user_signed_in? %>
+              <%= link_to "sign Out",  destroy_user_session_path,method: :delete %>
+          <%else%>
+
+              <%= link_to "Log in",  user_session_path %>
+          <%  end %>
+
+        </li>
+        <li class="page-scroll">
+          <%= link_to "courses",  courses_path %>
+        </li>
+        <li class="page-scroll">
+          <a href="#contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
+</nav>
+
+<br> <br> <br><br><br>
+
 <%= yield %>
-<% if user_signed_in? %>
-    you are signed in now and your data is
 
-    <br>
+<footer class="text-center">
 
-    <h3>email:</h3> <%= current_user.email  %>
-
-<%  end %>
+  <div class="footer-below">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          Copyright &copy; coursak 2016 by <a href="#" >Alaa Hussein</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
