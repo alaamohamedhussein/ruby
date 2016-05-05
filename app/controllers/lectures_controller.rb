@@ -75,11 +75,22 @@ class LecturesController < ApplicationController
     end
   end
   def vote
-    Lecture.find(params[:lectid]).liked_by current_user #lect obj +user obj
+    Lecture.find(params[:lectid]).liked_by current_user  #lect obj +user obj
     render :json => {message: "lecture liked" , type: "successed"}
   end
   def unvote
     Lecture.find(params[:lectid]).unliked_by current_user #lect obj +user obj
+    render :json => {message: "lecture unliked" , type: "successed"}
+  end
+  def spam
+    Lecture.find(params[:lectid]).liked_by current_user,:vote_scope => 'spam' #lect obj +user obj
+    render :json => {message: "lecture liked" , type: "successed"}
+  end
+
+
+
+  def unspam
+    Lecture.find(params[:lectid]).unliked_by current_user,:vote_scope => 'spam' #lect obj +user obj
     render :json => {message: "lecture unliked" , type: "successed"}
   end
   def comment

@@ -33,8 +33,15 @@
               <% if current_user.voted_up_on? @lecture %>
                   <button type="button" id="like">unlike</button>
               <%else%>
-               <button class="btn btn-brimary" type="button" id="like">like</button>
+               <button type="button" id="like">like</button>
               <%end%>
+            <% if current_user.voted_up_on? @lecture , :vote_scope => 'spam'%>
+                <button type="button" id="spam">unspam</button>
+            <%else%>
+                <button type="button" id="spam">spam</button>
+            <%end%>
+
+
           <%end%>
       </div>
     </div>
@@ -63,8 +70,10 @@
  <script>
    <% if current_user.voted_up_on? @lecture %>
     flag =0;
+
    <% else %>
    flag =1;
+
    <% end %>
    var lecture_id = <%=@lecture.id%>
    $('#like').on('click',function(){
@@ -95,7 +104,7 @@
              method: 'get',
              success: function (dataaaa) {
                if (dataaaa.type == "successed") {
-                 $('#like').html("like");
+                 $('#spam').html("like");
                  flag = 1;
                }
              }
@@ -105,8 +114,52 @@
 
      }
    })
+   <% if current_user.voted_up_on? @lecture , :vote_scope => 'spam'%>
+   flagspam =0;
+   <% else %>
+   flagspam =1;
+   <% end %>
+   var lecture_id = <%=@lecture.id%>
+   $('#spam').on('click',function(){
 
-     $('#comment').on('click',function(){
+     if (flagspam ==1) {
+       $.ajax(
+           {
+             url: '/lectures/' + lecture_id + '/spam',
+             method: 'get',
+             success: function (dataaaa) {
+               if (dataaaa.type == "successed") {
+                 $('#spam').html("unspam");
+                 flagspam = 0;
+               }
+             }
+
+           }
+       )
+     }
+
+     if (flagspam ==0)
+     {
+
+
+       $.ajax(
+           {
+             url: '/lectures/' + lecture_id + '/unspam',
+             method: 'get',
+             success: function (dataaaa) {
+               if (dataaaa.type == "successed") {
+                 $('#spam').html("spam");
+                 flagspam = 1;
+               }
+             }
+
+           }
+       )
+
+     }
+   })
+
+   $('#comment').on('click',function(){
        content= $('#content').val();
 
         if (content.trim() != "")

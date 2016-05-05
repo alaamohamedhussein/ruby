@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get 'lectures/:courseid/index' =>'lectures#index'
   get 'lectures/:lectid/vote' =>'lectures#vote'
   get 'lectures/:lectid/unvote' =>'lectures#unvote'
+  get 'lectures/:lectid/spam' =>'lectures#spam'
+  get 'lectures/:lectid/unspam' =>'lectures#unspam'
   get 'lectures/:lectid/comment' =>'lectures#comment'
   get 'users/download' =>'lectures#download'
   # The priority is based upon order of creation: first created -> highest priority.
